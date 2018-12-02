@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/indexer.dir/indexer.cc.o  -o indexer  -L/usr/local/lib -Wl,-rpath,/usr/local/lib /usr/lib/x86_64-linux-gnu/libboost_filesystem.so /usr/lib/x86_64-linux-gnu/libboost_system.so /usr/lib/x86_64-linux-gnu/libpq.so -lmarisa 

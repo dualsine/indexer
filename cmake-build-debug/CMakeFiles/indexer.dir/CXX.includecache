@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/code/cpp/indexer/indexer.cc
+indexer.h
+/code/cpp/indexer/indexer.h
+
+/code/cpp/indexer/indexer.h
+set
+-
+iostream
+-
+fstream
+-
+vector
+-
+sstream
+-
+regex
+-
+streambuf
+-
+boost/filesystem.hpp
+/code/cpp/indexer/boost/filesystem.hpp
+postgresql/libpq-fe.h
+-
+boost/algorithm/string/replace.hpp
+-
+
