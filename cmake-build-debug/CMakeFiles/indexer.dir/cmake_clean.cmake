@@ -1,5 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/indexer.dir/indexer.cc.o"
+  "CMakeFiles/indexer.dir/utils.cc.o"
+  "CMakeFiles/indexer.dir/gui.cc.o"
+  "CMakeFiles/indexer.dir/config.cc.o"
   "indexer.pdb"
   "indexer"
 )

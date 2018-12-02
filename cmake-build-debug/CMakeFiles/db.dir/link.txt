@@ -1,1 +1,0 @@
-/usr/bin/c++  -g   CMakeFiles/db.dir/db.cc.o  -o db 

@@ -90,10 +90,28 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/code/cpp/indexer/config.cc">
+			<Option target="indexer"/>
+		</Unit>
+		<Unit filename="/code/cpp/indexer/config.h">
+			<Option target="indexer"/>
+		</Unit>
+		<Unit filename="/code/cpp/indexer/gui.cc">
+			<Option target="indexer"/>
+		</Unit>
+		<Unit filename="/code/cpp/indexer/gui.h">
+			<Option target="indexer"/>
+		</Unit>
 		<Unit filename="/code/cpp/indexer/indexer.cc">
 			<Option target="indexer"/>
 		</Unit>
 		<Unit filename="/code/cpp/indexer/indexer.h">
+			<Option target="indexer"/>
+		</Unit>
+		<Unit filename="/code/cpp/indexer/utils.cc">
+			<Option target="indexer"/>
+		</Unit>
+		<Unit filename="/code/cpp/indexer/utils.h">
 			<Option target="indexer"/>
 		</Unit>
 		<Unit filename="/code/cpp/indexer/CMakeLists.txt">

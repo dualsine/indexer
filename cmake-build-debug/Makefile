@@ -123,6 +123,60 @@ indexer/fast:
 	$(MAKE) -f CMakeFiles/indexer.dir/build.make CMakeFiles/indexer.dir/build
 .PHONY : indexer/fast
 
+config.o: config.cc.o
+
+.PHONY : config.o
+
+# target to build an object file
+config.cc.o:
+	$(MAKE) -f CMakeFiles/indexer.dir/build.make CMakeFiles/indexer.dir/config.cc.o
+.PHONY : config.cc.o
+
+config.i: config.cc.i
+
+.PHONY : config.i
+
+# target to preprocess a source file
+config.cc.i:
+	$(MAKE) -f CMakeFiles/indexer.dir/build.make CMakeFiles/indexer.dir/config.cc.i
+.PHONY : config.cc.i
+
+config.s: config.cc.s
+
+.PHONY : config.s
+
+# target to generate assembly for a file
+config.cc.s:
+	$(MAKE) -f CMakeFiles/indexer.dir/build.make CMakeFiles/indexer.dir/config.cc.s
+.PHONY : config.cc.s
+
+gui.o: gui.cc.o
+
+.PHONY : gui.o
+
+# target to build an object file
+gui.cc.o:
+	$(MAKE) -f CMakeFiles/indexer.dir/build.make CMakeFiles/indexer.dir/gui.cc.o
+.PHONY : gui.cc.o
+
+gui.i: gui.cc.i
+
+.PHONY : gui.i
+
+# target to preprocess a source file
+gui.cc.i:
+	$(MAKE) -f CMakeFiles/indexer.dir/build.make CMakeFiles/indexer.dir/gui.cc.i
+.PHONY : gui.cc.i
+
+gui.s: gui.cc.s
+
+.PHONY : gui.s
+
+# target to generate assembly for a file
+gui.cc.s:
+	$(MAKE) -f CMakeFiles/indexer.dir/build.make CMakeFiles/indexer.dir/gui.cc.s
+.PHONY : gui.cc.s
+
 indexer.o: indexer.cc.o
 
 .PHONY : indexer.o
@@ -150,6 +204,33 @@ indexer.cc.s:
 	$(MAKE) -f CMakeFiles/indexer.dir/build.make CMakeFiles/indexer.dir/indexer.cc.s
 .PHONY : indexer.cc.s
 
+utils.o: utils.cc.o
+
+.PHONY : utils.o
+
+# target to build an object file
+utils.cc.o:
+	$(MAKE) -f CMakeFiles/indexer.dir/build.make CMakeFiles/indexer.dir/utils.cc.o
+.PHONY : utils.cc.o
+
+utils.i: utils.cc.i
+
+.PHONY : utils.i
+
+# target to preprocess a source file
+utils.cc.i:
+	$(MAKE) -f CMakeFiles/indexer.dir/build.make CMakeFiles/indexer.dir/utils.cc.i
+.PHONY : utils.cc.i
+
+utils.s: utils.cc.s
+
+.PHONY : utils.s
+
+# target to generate assembly for a file
+utils.cc.s:
+	$(MAKE) -f CMakeFiles/indexer.dir/build.make CMakeFiles/indexer.dir/utils.cc.s
+.PHONY : utils.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -159,9 +240,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... indexer"
+	@echo "... config.o"
+	@echo "... config.i"
+	@echo "... config.s"
+	@echo "... gui.o"
+	@echo "... gui.i"
+	@echo "... gui.s"
 	@echo "... indexer.o"
 	@echo "... indexer.i"
 	@echo "... indexer.s"
+	@echo "... utils.o"
+	@echo "... utils.i"
+	@echo "... utils.s"
 .PHONY : help
 
 

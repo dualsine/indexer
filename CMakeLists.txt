@@ -17,7 +17,13 @@ include_directories(.)
 
 add_executable(indexer
         indexer.cc
-        indexer.h)
+        indexer.h
+        utils.cc
+        utils.h
+        gui.cc
+        gui.h
+        config.h
+        config.cc)
 
 target_link_libraries(indexer
         ${Boost_FILESYSTEM_LIBRARY}
