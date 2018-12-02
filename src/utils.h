@@ -28,6 +28,7 @@ namespace utils {
   std::vector<std::string> split_string(const std::string& stringToSplit, const std::string& regexPattern);
   std::string create_sha(std::string root);
   bool is_new_sha(std::string root);
+  std::string load_sha(std::string root);
 }
 
 #endif

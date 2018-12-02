@@ -12,9 +12,13 @@
 #include <streambuf>
 #include "boost/filesystem.hpp"
 #include <boost/algorithm/string/replace.hpp>
+#include <pthread.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[]);
 bool file_to_ram(std::string fullpath, std::string path);
 bool indexer(std::string root);
+void* remove_bin_files_thread(void *root);
+void remove_bin_files(std::string root);
 
 #endif

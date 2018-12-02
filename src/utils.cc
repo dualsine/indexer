@@ -90,14 +90,15 @@ vector<string> utils::load_file(string path) {
 
 void utils::mass_delete(vector<string> files) {
   string multiple_paths("");
+  cout << "deleting " << files.size() << " binary files" << endl;
   for (int d=0; d<files.size(); d++) {
     multiple_paths += " "+files[d];
-    if (d%10 == 0) {
-      utils::exec("rm -f "+multiple_paths);
+    if (d%20 == 0) {
+      utils::exec("rm -f "+multiple_paths+" 2>/dev/null");
       multiple_paths = "";
     }
   }
-  utils::exec("rm -f "+multiple_paths);
+  utils::exec("rm -f "+multiple_paths+" 2>/dev/null");
 }
 
 void utils::copy_to_ramdisk(std::string root) {
@@ -110,8 +111,6 @@ void utils::copy_to_ramdisk(std::string root) {
 }
 
 vector<string> utils::find_binaries(string ramdisk_destination) {
-  int current_file = 0;
-  string all_files = utils::exec("find "+ramdisk_destination+" -type f | wc -l");
   vector<string> files_to_delete;
   for ( boost::filesystem::recursive_directory_iterator end, dir( ramdisk_destination );
         dir != end; ++dir ) {
@@ -120,13 +119,8 @@ vector<string> utils::find_binaries(string ramdisk_destination) {
       if (utils::is_binary(file_path)) {
         files_to_delete.push_back(file_path);
       }
-
-      if (current_file++%5000 == 0) {
-        cout << current_file << "/" << all_files;
-      }
     }
   }
-  cout << current_file << "/" << all_files;
   return files_to_delete;
 }
 
@@ -153,9 +147,14 @@ string utils::create_sha(string root) {
   return sha;
 }
 
+string utils::load_sha(string root) {
+  string sha = utils::exec("cat "+Config::ramdisk_path()+root+"/.sha 2>/dev/null");
+  boost::trim(sha);
+  return sha;
+}
+
 bool utils::is_new_sha(string root) {
-  string ram_sha = utils::exec("cat "+Config::ramdisk_path()+root+"/.sha");
-  boost::trim(ram_sha);
+  string ram_sha = utils::load_sha(root);
   string root_sha = utils::create_sha(root);
   boost::trim(root_sha);
 

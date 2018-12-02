@@ -23,11 +23,19 @@ int main(int argc, char *argv[])
       ui::print_info("1");
     }
     if (string(argv[1]) == "remove") {
+      if (getuid()) {
+        cout << "please run as sudo" << endl;
+        return 0;
+      }
       utils::exec("sudo umount "+Config::ramdisk_path());
       utils::exec("sudo rm -rf "+Config::ramdisk_path());
       ui::print_info("1");
     }
     if (string(argv[1]) == "install") {
+      if (getuid()) {
+        cout << "please run as sudo" << endl;
+        return 0;
+      }
       utils::create_ramdisk(Config::ramdisk_path(), Config::ramdisk_size());
     }
   }
@@ -36,6 +44,9 @@ int main(int argc, char *argv[])
       for (int i=0; i<argc-2; i++)
         if (!indexer(argv[i+2]))
           return -1;
+
+      cout << "everything loaded" << endl;
+      ui::print_info("4");
     }
     if (string(argv[1]) == "load") {
       string base_path = string(argv[2]);
@@ -46,6 +57,8 @@ int main(int argc, char *argv[])
         if (!indexer(path_to_index))
           return -1;
       }
+      cout << "everything loaded" << endl;
+      ui::print_info("4");
     }
   }
   if (argc > 1 && string(argv[1]) == "info") {
@@ -73,10 +86,9 @@ int main(int argc, char *argv[])
     cout << "everything is synchronized" << endl;
   }
   if (argc > 1 && string(argv[1]) == "grep") {
-    string args = "-lRF";
     string needle = string(argv[2]);
 
-    string cmd = "grep "+args+" \""+needle+"\" "+Config::ramdisk_path()+"/ 2>/dev/null";
+    string cmd = "grep -RFC 5 "+needle+" /media/indexer_ramdisk > /tmp/indexer_grep && cat /tmp/indexer_grep | sed -i '/^.\\{2048\\}./d' | sed -i 's/\\/media\\/indexer_ramdisk\\/electron_base\\/electron-gn//g' /tmp/indexer_grep && subl /tmp/indexer_grep";
     cout << cmd << endl;
 
     string grep = utils::exec(cmd);
@@ -93,15 +105,39 @@ bool indexer(std::string root) {
     cout << "no directory specified";
     return false;
   }
+  utils::exec("rm -f "+Config::ramdisk_path()+root+"/.sha");
+
+  pthread_t thread;
+  pthread_create(&thread, NULL, &remove_bin_files_thread, &root);
+
   utils::copy_to_ramdisk(root);
-
-  vector<string> binary_files = utils::find_binaries(Config::ramdisk_path()+root);
-
-  cout << "files to delete (binary): " << binary_files.size() << endl;
-  utils::mass_delete(binary_files);
 
   string sha = utils::create_sha(root);
   utils::exec("echo "+sha+" > "+Config::ramdisk_path()+root+"/.sha");
 
+  pthread_join(thread, NULL);
+
   return true;
+}
+
+void remove_bin_files(string root) {
+  vector<string> binary_files = utils::find_binaries(Config::ramdisk_path() + root);
+
+  utils::mass_delete(binary_files);
+}
+
+void* remove_bin_files_thread(void *root) {
+  string *root_path = (string*) root;
+
+  boost::filesystem::path boost_path(*root_path);
+  string parent_path = boost_path.parent_path().parent_path().string();
+
+  utils::exec("mkdir -p "+Config::ramdisk_path()+(parent_path)); // if starts before anything was copied
+  utils::exec("chmod -R 777 "+Config::ramdisk_path()+"/*");
+  while ( utils::load_sha(*root_path).length() < 40 ) {
+    remove_bin_files(*root_path);
+
+    sleep(5);
+  }
+  return 0;
 }
