@@ -28,7 +28,6 @@ target_link_libraries(indexer
 target_include_directories(indexer PRIVATE)
 
 configure_file(src/create_ramdisk.sh bin/create_ramdisk.sh COPYONLY)
-configure_file(src/indexer.cfg bin/indexer.cfg COPYONLY)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

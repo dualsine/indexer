@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     }
     if (string(argv[1]) == "remove") {
       utils::exec("sudo umount "+Config::ramdisk_path());
+      utils::exec("sudo rm -rf "+Config::ramdisk_path());
       ui::print_info("1");
     }
     if (string(argv[1]) == "install") {
@@ -48,7 +49,7 @@ int main(int argc, char *argv[])
     }
   }
   if (argc > 1 && string(argv[1]) == "info") {
-    string tree_depth = "1";
+    string tree_depth = "4";
     if (argv[2]) tree_depth = argv[2];
     ui::print_info(tree_depth);
   }

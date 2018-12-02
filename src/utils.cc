@@ -40,7 +40,15 @@ bool utils::is_binary(string fullpath) {
 }
 
 bool utils::create_ramdisk(string name, string size) {
-  string df_info = utils::exec(string("sudo ./create_ramdisk.sh "+name+" "+size));
+  utils::exec("echo \"#!/bin/sh\" > /tmp/create_ramdisk");
+  utils::exec("echo \"sudo mkdir -p "+name+" > /dev/null\" >> /tmp/create_ramdisk");
+  utils::exec("echo \"sudo chmod -R 777 "+name+" > /dev/null\" >> /tmp/create_ramdisk");
+  utils::exec("echo \"df -h | grep "+name+" > /dev/null\" >> /tmp/create_ramdisk");
+  utils::exec("echo \"sudo mount -t tmpfs -o size="+size+" tmpfs "+name+"\" >> /tmp/create_ramdisk");
+  utils::exec("chmod +x /tmp/create_ramdisk");
+  utils::exec(string("sudo /tmp/create_ramdisk"));
+
+  string df_info = utils::exec("df -h");
   df_info = utils::replace_string(df_info, Config::ramdisk_path(), Config::ramdisk_path()+" <<< NEW RAMDISK");
   cout << df_info << endl;
   return true;
@@ -94,8 +102,8 @@ void utils::mass_delete(vector<string> files) {
 
 void utils::copy_to_ramdisk(std::string root) {
   boost::filesystem::path boost_path(root);
-  string path = boost_path.parent_path().string();
-  utils::exec("mkdir -p "+Config::ramdisk_path()+path);
+  string parent_path = boost_path.parent_path().parent_path().string();
+  utils::exec("mkdir -p "+Config::ramdisk_path()+parent_path);
   string ramdisk_destination = Config::ramdisk_path()+root;
   string cmd = "cp -rfp "+root+" "+ramdisk_destination+" > /dev/null 2>&1";
   utils::exec(cmd);
