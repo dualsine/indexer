@@ -1,3 +1,0 @@
-/code/cpp/indexer/cmake-build-debug/CMakeFiles/edit_cache.dir
-/code/cpp/indexer/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/code/cpp/indexer/cmake-build-debug/CMakeFiles/indexer.dir

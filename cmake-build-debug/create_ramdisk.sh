@@ -1,1 +1,0 @@
-/code/cpp/indexer/create_ramdisk.sh

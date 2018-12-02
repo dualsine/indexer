@@ -1,8 +1,0 @@
-/opt/clion-2018.2.6/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /code/cpp/indexer
--- Boost version: 1.67.0
--- Found the following Boost libraries:
---   system
---   filesystem
--- Configuring done
--- Generating done
--- Build files have been written to: /code/cpp/indexer/cmake-build-debug

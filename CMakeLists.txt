@@ -8,28 +8,35 @@ LINK_DIRECTORIES(/usr/local/lib)
 
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 
-set(PostgreSQL_ADDITIONAL_VERSIONS "11")
-set(PostgreSQL_INCLUDE_DIR /usr/include/postgresql)
-set(PostgreSQL_LIBRARY_DIR /usr/include/postgresql)
-find_package(PostgreSQL REQUIRED)
-
-include_directories(.)
+include_directories(src/)
 
 add_executable(indexer
-        indexer.cc
-        indexer.h
-        utils.cc
-        utils.h
-        gui.cc
-        gui.h
-        config.h
-        config.cc)
+        src/indexer.cc
+        src/indexer.h
+        src/utils.cc
+        src/utils.h
+        src/ui.cc
+        src/ui.h
+        src/config.h
+        src/config.cc)
 
 target_link_libraries(indexer
         ${Boost_FILESYSTEM_LIBRARY}
         ${Boost_SYSTEM_LIBRARY}
-        ${PostgreSQL_LIBRARIES}
-        marisa
         )
 
-target_include_directories(indexer PRIVATE ${PostgreSQL_INCLUDE_DIRS})
+target_include_directories(indexer PRIVATE)
+
+configure_file(src/create_ramdisk.sh bin/create_ramdisk.sh COPYONLY)
+configure_file(src/indexer.cfg bin/indexer.cfg COPYONLY)
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+set_target_properties( indexer
+        PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+        )
