@@ -28,4 +28,5 @@ void ui::print_about() {
   cout << " load     PATH         - load .index file from given path. Generally it's for mass load directories to ramdisk." << endl;
   cout << " grep     TEXT         - starts grep in ramdisk" << endl;
   cout << " refresh               - checks for changes in files (date, size, name)" << endl;
+  cout << " deletebins            - remove all bins from remdisk" << endl;
 }

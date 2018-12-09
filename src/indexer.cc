@@ -18,6 +18,9 @@ int main(int argc, char *argv[])
     ui::print_about();
   }
   if (argc == 2) {
+    if (string(argv[1]) == "deletebin" || string(argv[1]) == "deletebins") {
+      remove_bin_files("");
+    }
     if (string(argv[1]) == "clear") {
       utils::clear_ramdisk(Config::ramdisk_path());
       ui::print_info("1");
